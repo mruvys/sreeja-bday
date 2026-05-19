@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sreeja's Birthday ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #fdf8f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 2rem 1rem 4rem;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .wrap { width: 100%; max-width: 480px; }
+
+    .hero { text-align: center; margin-bottom: 1.75rem; }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #b08a78;
+      margin-bottom: 0.35rem;
+    }
+
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: #3d2e28;
+      margin: 0 0 0.3rem;
+    }
+
+    .title em { font-style: italic; color: #a0614d; }
+
+    .subtitle { font-size: 13px; color: #9a7a70; }
+
+    .lock-screen {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: #fdf4f0;
+      border: 1.5px dashed #e8cfc4;
+      border-radius: 20px;
+      margin-top: 0.5rem;
+    }
+
+    .lock-icon { font-size: 36px; margin-bottom: 1rem; }
+
+    .lock-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: #3d2e28;
+      margin-bottom: 0.5rem;
+    }
+
+    .lock-hint {
+      font-size: 13px;
+      color: #9a7a70;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .lock-input-row {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lock-input {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 10px 16px;
+      border-radius: 24px;
+      border: 1.5px solid #e8cfc4;
+      background: white;
+      color: #3d2e28;
+      outline: none;
+      width: 180px;
+      text-align: center;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s;
+    }
+
+    .lock-input:focus { border-color: #c47860; }
+    .lock-input.shake { animation: shake 0.4s ease; border-color: #e07060; }
+
+    .lock-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      padding: 10px 18px;
+      border-radius: 24px;
+      border: 1.5px solid #c47860;
+      background: #c47860;
+      color: white;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .lock-btn:hover { background: #a05840; border-color: #a05840; }
+
+    .lock-error {
+      font-size: 12px;
+      color: #c04030;
+      margin-top: 0.75rem;
+      min-height: 18px;
+      transition: opacity 0.2s;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px); }
+      40% { transform: translateX(6px); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+
+    .main-content { display: none; }
+    .main-content.visible { display: block; }
+
+    .unlocked-banner {
+      text-align: center;
+      margin-bottom: 1.25rem;
+      font-size: 13px;
+      color: #9a7a70;
+    }
+
+    .progress-bar-wrap {
+      height: 4px;
+      background: #f0e4de;
+      border-radius: 4px;
+      margin: 0 0 1.75rem;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: #c47860;
+      border-radius: 4px;
+      transition: width 0.5s ease;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .card-outer {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      min-height: 130px;
+    }
+
+    .card-cover {
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 2;
+    }
+
+    .card-cover.scratched {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    .card-cover-num {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      opacity: 0.7;
+    }
+
+    .card-cover-hint { font-size: 20px; }
+
+    .card-cover-tap {
+      font-size: 10px;
+      opacity: 0.55;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .card-reveal {
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid;
+    }
+
+    .card-time {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: #2e1e18;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .card-desc {
+      font-size: 11.5px;
+      color: #7a6a64;
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .card-emoji-row { font-size: 14px; margin-top: 8px; }
+
+    .all-done {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1.25rem;
+      background: #fdf0fa;
+      border: 1.5px dashed #d4a8cc;
+      border-radius: 16px;
+      display: none;
+    }
+
+    .all-done.visible { display: block; }
+
+    .all-done-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: #9040a0;
+      margin-bottom: 0.4rem;
+    }
+
+    .all-done-text {
+      font-size: 12.5px;
+      color: #7a5870;
+      line-height: 1.6;
+    }
+
+    .reset-btn {
+      margin-top: 1rem;
+      font-size: 12px;
+      padding: 6px 16px;
+      border-radius: 20px;
+      border: 1px solid #d4a8cc;
+      background: white;
+      color: #9040a0;
+      cursor: pointer;
+    }
+
+    .reset-btn:hover { background: #fdf0fa; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="eyebrow">Sunday, May 24</div>
+    <h1 class="title">Sreeja's <em>Birthday</em> Scratch-offs</h1>
+    <div class="subtitle">Tap each card to reveal your next stop ✨</div>
+  </div>
+
+  <div class="lock-screen" id="lock-screen">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title">your day is waiting</div>
+    <div class="lock-hint">Mru will send you the secret word<br>when it's time to begin 🌸</div>
+    <div class="lock-input-row">
+      <input class="lock-input" id="code-input" type="text" placeholder="enter secret word" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+      <button class="lock-btn" onclick="tryUnlock()">unlock</button>
+    </div>
+    <div class="lock-error" id="lock-error"></div>
+  </div>
+
+  <div class="main-content" id="main-content">
+    <div class="unlocked-banner">🎉 the adventure begins — tap each stop in order!</div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress" style="width: 0%"></div>
+    </div>
+    <div class="cards-grid" id="grid"></div>
+    <div class="all-done" id="all-done">
+      <div class="all-done-title">you did it all 🎉</div>
+      <div class="all-done-text">
+        What a day. Pajamas on, face masks on,<br>
+        something chocolatey, and a comfort movie. 🍫🎬🌙
+      </div>
+      <button class="reset-btn" onclick="resetCards()">Start over</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SECRET = "himalaya";
+
+const stops = [
+  { time: "10:30 am", name: "Kettl Tasting", desc: "Booked matcha tasting in Greenpoint", emoji: "🍵", hint: "🍵", bg: "#f3f8f0", border: "#c4d9bb", timeColor: "#5a7e50", cover: "#e0f0d8", coverText: "#3a6030" },
+  { time: "12:00 pm", name: "Greenpoint Wander", desc: "Waterfront, shops, or a slow stroll", emoji: "🌊", hint: "🌊", bg: "#fdf4f0", border: "#e8cfc4", timeColor: "#8c6858", cover: "#f0ddd4", coverText: "#6a4840" },
+  { time: "1:30 pm", name: "Rule of Thirds", desc: "Sake-forward birthday lunch", emoji: "🍶", hint: "🍶", bg: "#fdf0ec", border: "#f0c8bc", timeColor: "#a05840", cover: "#f5c8b8", coverText: "#7a3820" },
+  { time: "3:15 pm", name: "Dashi Okume", desc: "Create or browse custom dashi blends", emoji: "🫙", hint: "🫙", bg: "#fdf8ec", border: "#e8d8a4", timeColor: "#8c7040", cover: "#f0e0a0", coverText: "#6a5020" },
+  { time: "4:00 pm", name: "Bin Bin or Homecoming", desc: "Sake browse or floral/plant stop", emoji: "🌸", hint: "🌸", bg: "#faf0f5", border: "#e0c0d4", timeColor: "#7e4e6a", cover: "#e8c0d8", coverText: "#5e2e50" },
+  { time: "4:45 pm", name: "Fish & Lobster", desc: "Light oysters and a seafood snack", emoji: "🦞", hint: "🦞", bg: "#f0f8fb", border: "#b8d8e4", timeColor: "#4e7e90", cover: "#b8d8ec", coverText: "#2e5870" },
+  { time: "6:30 pm", name: "Breeze", desc: "Sichuan dinner finale", emoji: "🌶️", hint: "🌶️", bg: "#f5f3fb", border: "#ccc4e8", timeColor: "#5e4e9e", cover: "#ccc4ec", coverText: "#3e2e80" },
+  { time: "8:30 pm", name: "The Hidden Pearl", desc: "Intimate after-dinner cocktail nightcap", emoji: "🍸", hint: "🍸", bg: "#f5f0eb", border: "#d4b8a8", timeColor: "#5e4838", cover: "#d8c0b0", coverText: "#3e2818" },
+  { time: "9:30 pm", name: "Sleepover After-Party", desc: "Pajamas, face masks, chocolatey dessert & a movie", emoji: "🎬", hint: "🎬", bg: "#fdf0fa", border: "#ddb8e0", timeColor: "#9040a0", cover: "#e0b8e0", coverText: "#601878" }
+];
+
+const scratched = new Array(stops.length).fill(false);
+
+function tryUnlock() {
+  const val = document.getElementById('code-input').value.trim().toLowerCase();
+  const err = document.getElementById('lock-error');
+  if (val === SECRET) {
+    document.getElementById('lock-screen').style.display = 'none';
+    document.getElementById('main-content').classList.add('visible');
+    render();
+  } else {
+    err.textContent = val.length === 0 ? 'enter the secret word to unlock 🌸' : 'hmm, not quite — check with Mru! 🙈';
+    const input = document.getElementById('code-input');
+    input.classList.remove('shake');
+    void input.offsetWidth;
+    input.classList.add('shake');
+    setTimeout(() => input.classList.remove('shake'), 400);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('code-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') tryUnlock();
+  });
+});
+
+function render() {
+  const grid = document.getElementById('grid');
+  grid.innerHTML = '';
+  stops.forEach((s, i) => {
+    const outer = document.createElement('div');
+    outer.className = 'card-outer';
+    outer.onclick = () => scratch(i);
+
+    const cover = document.createElement('div');
+    cover.className = 'card-cover' + (scratched[i] ? ' scratched' : '');
+    cover.style.background = s.cover;
+    cover.innerHTML = `
+      <div class="card-cover-num" style="color:${s.coverText}">Stop ${i+1}</div>
+      <div class="card-cover-hint">${s.hint}</div>
+      <div class="card-cover-tap" style="color:${s.coverText}">tap to reveal</div>
+    `;
+
+    const reveal = document.createElement('div');
+    reveal.className = 'card-reveal';
+    reveal.style.background = s.bg;
+    reveal.style.borderColor = s.border;
+    reveal.innerHTML = `
+      <div>
+        <div class="card-time" style="color:${s.timeColor}">${s.time}</div>
+        <div class="card-name">${s.name}</div>
+        <div class="card-desc">${s.desc}</div>
+      </div>
+      <div class="card-emoji-row">${s.emoji}</div>
+    `;
+
+    outer.appendChild(reveal);
+    outer.appendChild(cover);
+    grid.appendChild(outer);
+  });
+  updateProgress();
+}
+
+function scratch(i) {
+  if (scratched[i]) return;
+  scratched[i] = true;
+  const covers = document.querySelectorAll('.card-cover');
+  covers[i].classList.add('scratched');
+  updateProgress();
+  if (scratched.every(Boolean)) {
+    setTimeout(() => document.getElementById('all-done').classList.add('visible'), 500);
+  }
+}
+
+function updateProgress() {
+  const count = scratched.filter(Boolean).length;
+  document.getElementById('progress').style.width = (count / stops.length * 100) + '%';
+}
+
+function resetCards() {
+  scratched.fill(false);
+  document.getElementById('all-done').classList.remove('visible');
+  render();
+}
+</script>
+</body>
+</html>
