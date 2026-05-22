@@ -277,7 +277,7 @@
 <body>
 <div class="wrap">
   <div class="hero">
-    <div class="eyebrow">Sunday, May 24</div>
+    <div class="eyebrow">May 24 – 25 Weekend</div>
     <h1 class="title">Sreeja's <em>Birthday</em> Scratch-offs</h1>
     <div class="subtitle">Tap each card to reveal your next stop ✨</div>
   </div>
@@ -314,16 +314,12 @@
 const SECRET = "himalaya";
 
 const stops = [
-  { time: "10:30 am", name: "Kettl Tasting", desc: "Booked matcha tasting in Greenpoint", emoji: "🍵", hint: "🍵", bg: "#f3f8f0", border: "#c4d9bb", timeColor: "#5a7e50", cover: "#e0f0d8", coverText: "#3a6030" },
-  { time: "12:00 pm", name: "Greenpoint Wander", desc: "Waterfront, shops, or a slow stroll", emoji: "🌊", hint: "🌊", bg: "#fdf4f0", border: "#e8cfc4", timeColor: "#8c6858", cover: "#f0ddd4", coverText: "#6a4840" },
-  { time: "1:30 pm", name: "Rule of Thirds", desc: "Sake-forward birthday lunch", emoji: "🍶", hint: "🍶", bg: "#fdf0ec", border: "#f0c8bc", timeColor: "#a05840", cover: "#f5c8b8", coverText: "#7a3820" },
-  { time: "3:15 pm", name: "Dashi Okume", desc: "Create or browse custom dashi blends", emoji: "🫙", hint: "🫙", bg: "#fdf8ec", border: "#e8d8a4", timeColor: "#8c7040", cover: "#f0e0a0", coverText: "#6a5020" },
-  { time: "4:00 pm", name: "Bin Bin or Homecoming", desc: "Sake browse or floral/plant stop", emoji: "🌸", hint: "🌸", bg: "#faf0f5", border: "#e0c0d4", timeColor: "#7e4e6a", cover: "#e8c0d8", coverText: "#5e2e50" },
-  { time: "4:45 pm", name: "Fish & Lobster", desc: "Light oysters and a seafood snack", emoji: "🦞", hint: "🦞", bg: "#f0f8fb", border: "#b8d8e4", timeColor: "#4e7e90", cover: "#b8d8ec", coverText: "#2e5870" },
-  { time: "6:30 pm", name: "Breeze", desc: "Sichuan dinner finale", emoji: "🌶️", hint: "🌶️", bg: "#f5f3fb", border: "#ccc4e8", timeColor: "#5e4e9e", cover: "#ccc4ec", coverText: "#3e2e80" },
-  { time: "8:30 pm", name: "The Hidden Pearl", desc: "Intimate after-dinner cocktail nightcap", emoji: "🍸", hint: "🍸", bg: "#f5f0eb", border: "#d4b8a8", timeColor: "#5e4838", cover: "#d8c0b0", coverText: "#3e2818" },
-  { time: "9:30 pm", name: "Sleepover After-Party", desc: "Pajamas, face masks, chocolatey dessert & a movie", emoji: "🎬", hint: "🎬", bg: "#fdf0fa", border: "#ddb8e0", timeColor: "#9040a0", cover: "#e0b8e0", coverText: "#601878" },
-  { time: "10:00 am — next day", name: "Hot Stone Massage", desc: "Morning birthday spa treat to melt it all away", emoji: "🪨", hint: "🪨", bg: "#f5f0eb", border: "#d4c4b0", timeColor: "#6e5a48", cover: "#ddd0c0", coverText: "#4e3a28" }
+  { time: "SAT 4:00 pm", name: "Sake & Cheese Pairing", desc: "Sake tasting and cheese pairing class — 34 34th St, Brooklyn", emoji: "🍶", hint: "🍶", bg: "#fdf8ec", border: "#e8d8a4", timeColor: "#8c7040", cover: "#f0e0a0", coverText: "#6a5020" },
+  { time: "SAT 6:30 pm", name: "Dinner at Breeze", desc: "Sichuan dinner — 595 Manhattan Ave, Brooklyn", emoji: "🌶️", hint: "🌶️", bg: "#f5f3fb", border: "#ccc4e8", timeColor: "#5e4e9e", cover: "#ccc4ec", coverText: "#3e2e80" },
+  { time: "SUN 10:00 am", name: "Hot Stone Massage", desc: "60-min hot stone spa treat — 550 Broadway 4th floor", emoji: "🪨", hint: "🪨", bg: "#f5f0eb", border: "#d4c4b0", timeColor: "#6e5a48", cover: "#ddd0c0", coverText: "#4e3a28" },
+  { time: "SUN 12:45 pm", name: "Brunch at Rule of Thirds", desc: "Birthday brunch — 171 Banker St, Brooklyn", emoji: "🍶", hint: "🍶", bg: "#fdf0ec", border: "#f0c8bc", timeColor: "#a05840", cover: "#f5c8b8", coverText: "#7a3820" },
+  { time: "SUN 3:00 pm", name: "Kettl Matcha", desc: "Matcha tasting — 38 Norman Ave, Brooklyn", emoji: "🍵", hint: "🍵", bg: "#f3f8f0", border: "#c4d9bb", timeColor: "#5a7e50", cover: "#e0f0d8", coverText: "#3a6030" },
+  { time: "SUN 6:00 pm", name: "Dinner at Bar Bête", desc: "Evening dinner — 263 Smith St, Brooklyn", emoji: "🍽️", hint: "🍽️", bg: "#faf0f5", border: "#e0c0d4", timeColor: "#7e4e6a", cover: "#e8c0d8", coverText: "#5e2e50" }
 ];
 
 const scratched = new Array(stops.length).fill(false);
